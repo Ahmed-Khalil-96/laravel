@@ -6,6 +6,8 @@ use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Event;
+use App\Events\PostCreated;
+use App\Listeners\UpdateUserPostsCount;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -17,9 +19,17 @@ class EventServiceProvider extends ServiceProvider
     protected $listen = [
         Registered::class => [
             SendEmailVerificationNotification::class,
+            'App\Events\PostCreated' => [
+                'App\Listeners\UpdateUserPostsCount',
+            ],
+            PostCreated::class => [
+                UpdateUserPostsCount::class,
+            ],        
         ],
     ];
+    
 
+    
     /**
      * Register any events for your application.
      */

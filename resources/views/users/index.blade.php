@@ -1,17 +1,18 @@
 @extends('layouts.main')
 
-@section('title', 'Users List')
+@section('title', 'User List')
 
 @section('content')
-<div class="mt-4">
-    <h1>Users List</h1>
+    <h1>User List</h1>
+
     <table class="table">
         <thead>
             <tr>
                 <th>ID</th>
                 <th>Name</th>
                 <th>Email</th>
-                <th>Actions</th>
+                <th>Posts Count</th> <!-- Add this column -->
+                <th>Action</th>
             </tr>
         </thead>
         <tbody>
@@ -20,19 +21,13 @@
                 <td>{{ $user->id }}</td>
                 <td>{{ $user->name }}</td>
                 <td>{{ $user->email }}</td>
+                <td>{{ $user->posts_count }}</td> <!-- Display the posts_count -->
                 <td>
-                <a href="{{ route('users.edit', $user->id) }}" class="btn btn-primary">Edit</a>
-                    <form action="{{ route('users.destroy', $user->id) }}" method="POST" class="d-inline">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this user?')">Delete</button>
-                    </form>
+                    <a href="{{ route('users.show', $user->id) }}" class="btn btn-primary">View</a>
+                    <!-- Add other actions like Edit and Delete -->
                 </td>
             </tr>
             @endforeach
         </tbody>
     </table>
-</div>
 @endsection
-
-
